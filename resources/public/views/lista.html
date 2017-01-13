@@ -1,0 +1,189 @@
+<nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" class="brand-logo">O Que Fazer</a>
+    </div>
+</nav>
+<div class="section no-pad-bot">
+    <div class="container">
+        <div class="row center">
+            <h5 class="header col s12 light">Controle a sua lista de tarefas.</h5>
+        </div>
+
+        <form name="form-atividade" class="col s12" ng-submit="vm.adicionar(vm.atividade)">
+
+            <div class="row formulario-de-cadastro" ng-if="!vm.form_edicao">
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input ng-model="vm.atividade.titulo" id="titulo" type="text" class="validate" required="true">
+                            <label for="titulo">Título</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea ng-model="vm.atividade.descricao" id="descricao" class="materialize-textarea" required="true"></textarea>
+                            <label for="descricao">Descrição</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input ng-model="vm.atividade.status" type="checkbox" id="status" />
+                            <label for="status">Atividade Finalizada ?</label>
+                        </div>
+                    </div>
+
+            </div>
+
+            <br>
+
+            <div class="row" ng-if="!vm.form_edicao">
+                <button ng-disabled="form-atividade.$invalid" type="submit" class="btn-large waves-effect waves-light green">Cadastrar Tarefa</button>
+                <a ng-click="vm.limpar()" ng-if="vm.listagem_pendentes.length > 0 && vm.listagem_finalizados.length > 0" class="btn-large waves-effect waves-light right red">Remover Todas</a>
+            </div>
+
+        </form>
+
+        <form class="col s12" ng-submit="vm.editar()">
+
+            <div class="row formulario-de-edicao" ng-if="!vm.form_cadastro">
+
+                <input ng-model="vm.atividadeEdicao.id_atividade" id="id_atividade" type="hidden" required="true">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input ng-model="vm.atividadeEdicao.titulo" id="titulo" type="text" class="validate" required="true">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea ng-model="vm.atividadeEdicao.descricao" id="descricao" class="materialize-textarea" required="true"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input ng-checked="vm.atividadeEdicao.status == 'true'" ng-model="vm.atividadeEdicao.status" value="vm.atividadeEdicao.status" type="checkbox" id="status" />
+                        <label for="status">Atividade Finalizada ?</label>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row center" ng-if="!vm.form_cadastro">
+                <button class="btn-large waves-effect waves-light orange">Editar Tarefa</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div class="section">
+
+        <div class="row center">
+            <h5 class="header col s12 light">PENDÊNCIAS</h5>
+        </div>
+
+        <div class="row">
+
+            <div class="col s12 m4" ng-repeat="atividade in vm.listagem_pendentes">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title" ng-bind="'Título: ' + atividade.titulo"></span>
+                        <p ng-bind="'Descrição: ' + atividade.descricao"></p>
+                        <p ng-bind="'Criação: ' + atividade.dt_criacao"></p>
+                        <p ng-bind="atividade.status != 'true' ? 'Situação: Pendente' : 'Situação: Finalizado'"></p>
+                    </div>
+                    <div class="card-action center">
+                        <button class="btn" ng-click="vm.visualizar(atividade)">Editar</button>
+                        <button ng-disabled="!vm.form_cadastro" class="btn red" ng-click="vm.excluir(atividade)">x</button>
+                    </div>
+                    <div class="card-action center">
+                        <button ng-disabled="!vm.form_cadastro" class="btn green" ng-click="vm.finalizar(atividade)">Finalizar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row nao-existem-atividades" ng-if="vm.listagem_pendentes.length < 1">
+
+            <div class="col s12 m12">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">INFORMAÇÃO</span>
+                        <p>Não existem atividades pendentes</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="section">
+
+        <div class="row center">
+            <h5 class="header col s12 light">FINALIZADOS</h5>
+        </div>
+
+        <div class="row">
+
+            <div class="col s12 m4" ng-repeat="atividade in vm.listagem_finalizados">
+                <div class="card blue darken-1">
+                    <div class="card-content">
+                        <span class="card-title" ng-bind="'Título: ' + atividade.titulo"></span>
+                        <p ng-bind="'Descrição: ' + atividade.descricao"></p>
+                        <p ng-bind="'Criação: ' + atividade.dt_criacao"></p>
+                        <p ng-bind="atividade.status != 'true' ? 'Situação: Pendente' : 'Situação: Finalizado'"></p>
+                    </div>
+                    <div class="card-action center">
+                        <button disabled class="btn" ng-click="vm.visualizar(atividade)">Editar</button>
+                        <button ng-disabled="!vm.form_cadastro" class="btn red" ng-click="vm.excluir(atividade)">x</button>
+                    </div>
+                    <div class="card-action center">
+                        <button ng-disabled="!vm.form_cadastro" class="btn orange" ng-click="vm.pendenciar(atividade)">Pendência</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row nao-existem-atividades" ng-if="vm.listagem_finalizados.length < 1">
+
+            <div class="col s12 m12">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">INFORMAÇÃO</span>
+                        <p>Não existem atividades finalizadas</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <div class="section">
+
+    </div>
+</div>
+
+<footer class="page-footer orange">
+    <div class="container">
+        <div class="row">
+            <div class="col l12 s12">
+                <h5 class="white-text">O Que Fazer</h5>
+                <p class="grey-text text-lighten-4">Controle a sua lista de tarefas.</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            Made by <a class="orange-text text-lighten-3">Materialize</a>
+        </div>
+    </div>
+</footer>
