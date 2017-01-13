@@ -3,8 +3,6 @@
 
 A barebones Clojure app, which can easily be deployed to Heroku.  
 
-This application support the [Getting Started with Clojure](https://devcenter.heroku.com/articles/tasks-with-clojure) article - check it out.
-
 ## Running Locally
 
 Make sure you have Clojure installed.  Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
