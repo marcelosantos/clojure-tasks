@@ -20,6 +20,11 @@
   :headers {"Content-Type" "application/json"}
   :body "[{\"id_atividade\":\"095b19fe3009b23415c5c9172599c6d14b34eee9\",\"titulo\":\"Implementar\",\"descricao\":\"Algo\",\"status\":\"false\",\"dt_criacao\":\"2017-01-13\"}]"})
 
+(defn addnew []
+ {:status 200
+  :headers {"Content-Type" "application/json"}
+  :body "[{\"id_atividade\":\"095b19fe3009b23415c5c9172599c6d14b34eee9\",\"titulo\":\"ABC\",\"descricao\":\"DEF\",\"status\":\"false\",\"dt_criacao\":\"2017-01-14\"}]"})
+
 (defn show []
     (io/resource "show.html"))
 
@@ -27,6 +32,8 @@
   ;(GET "/" [] (resp/file-response "index.html" {:root "public"}))
   (GET "/" []
        (inicial))
+  (POST "/api/adicionar" []
+       (addnew))
   (GET "/api/listar" []
        (listing))
   (GET "/show" []
