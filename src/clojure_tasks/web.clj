@@ -20,7 +20,17 @@
   :headers {"Content-Type" "application/json"}
   :body "[{\"id_atividade\":\"095b19fe3009b23415c5c9172599c6d14b34eee9\",\"titulo\":\"Implementar\",\"descricao\":\"Algo\",\"status\":\"false\",\"dt_criacao\":\"2017-01-13\"}]"})
 
-(defn addnew []
+(defn addtask []
+ {:status 200
+  :headers {"Content-Type" "application/json"}
+  :body "[{\"id_atividade\":\"095b19fe3009b23415c5c9172599c6d14b34eee9\",\"titulo\":\"ABC\",\"descricao\":\"DEF\",\"status\":\"false\",\"dt_criacao\":\"2017-01-14\"}]"})
+
+(defn edittask []
+ {:status 200
+  :headers {"Content-Type" "application/json"}
+  :body "[{\"id_atividade\":\"095b19fe3009b23415c5c9172599c6d14b34eee9\",\"titulo\":\"ABC\",\"descricao\":\"DEF\",\"status\":\"false\",\"dt_criacao\":\"2017-01-14\"}]"})
+
+(defn removetask []
  {:status 200
   :headers {"Content-Type" "application/json"}
   :body "[{\"id_atividade\":\"095b19fe3009b23415c5c9172599c6d14b34eee9\",\"titulo\":\"ABC\",\"descricao\":\"DEF\",\"status\":\"false\",\"dt_criacao\":\"2017-01-14\"}]"})
@@ -33,7 +43,11 @@
   (GET "/" []
        (inicial))
   (POST "/api/adicionar" []
-       (addnew))
+       (addtask))
+  (PUT "/api/editar" []
+       (edittask))
+  (DELETE "/api/remover" []
+       (removetask))
   (GET "/api/listar" []
        (listing))
   (GET "/show" []
