@@ -1,3 +1,8 @@
+v0.0.4 (25/01/2017)
+===================
+## features
+- removendo ação de mostra inutilizada
+
 v0.0.3 (23/01/2017)
 ===================
 ## features
