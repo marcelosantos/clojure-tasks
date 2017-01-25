@@ -40,9 +40,6 @@
   :headers {"Content-Type" "application/json"}
   :body "[{\"id_atividade\":\"095b19fe3009b23415c5c9172599c6d14b34eee9\",\"titulo\":\"ABC\",\"descricao\":\"DEF\",\"status\":\"false\",\"dt_criacao\":\"2017-01-14\"}]"})
 
-(defn show []
-    (io/resource "show.html"))
-
 (defroutes app
   ;(GET "/" [] (resp/file-response "index.html" {:root "public"}))
   (GET "/" []
@@ -57,8 +54,6 @@
        (viewtask))
   (GET "/api/listar" []
        (listing))
-  (GET "/show" []
-       (show))
   (route/resources "/")
   (ANY "*" []
        (route/not-found (slurp (io/resource "404.html")))))
